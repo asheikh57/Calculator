@@ -2,31 +2,51 @@
 #define STACK_H
 
 #include <memory>
+#include <stdexcept>
+#include <utility>
 
 template<typename T>
 class Stack {
     public:
       T pop() {
-        // TODO
-        T TODO;
-        return TODO;
+        if (isEmpty()) {
+            throw std::out_of_range("Stack.h : pop() : Empty, stack underflow");
+        }
+        // Transfer ownership to local variables
+        std::unique_ptr<Node> old = std::move(head_);
+        T ret = std::move(old->val);
+
+        // Set new head and update params
+        head_ = std::move(old->next);
+        size_--;
+        return ret;
       }
 
       void push(T val) {
-        // TODO
+        std::unique_ptr<Node> new_head = std::make_unique<Node>(std::move(val));
+        new_head->next = std::move(head_);
+        head_ = std::move(new_head);
+        size_++;
       }
 
-      bool is_empty() {
-        // TODO
-        return true;
+      bool isEmpty() {
+        return size_ == 0;
+      }
+
+      size_t size() {
+        return size_;
       }
 
     private:
      struct Node {
         T val;
-        std::unique_ptr<T> next;
+        std::unique_ptr<Node> next;
+        Node(T data) : val(data), next(nullptr) {};
+        //Node(Node &&n) : val(std::move(n.val)), next(std::move(n.next));
      };
-     size_t size;
+
+     std::size_t size_;
+     std::unique_ptr<Node> head_;
       
 };
 
