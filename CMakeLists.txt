@@ -12,4 +12,6 @@ target_include_directories(stack INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-add_subdirectory(src)
+add_executable(rpn_calc src/rpn_calc.cpp)
+
+target_link_libraries(rpn_calc PRIVATE stack)
