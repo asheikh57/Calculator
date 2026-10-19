@@ -42,7 +42,6 @@ class Stack {
         T val;
         std::unique_ptr<Node> next;
         Node(T data) : val(data), next(nullptr) {};
-        //Node(Node &&n) : val(std::move(n.val)), next(std::move(n.next));
      };
 
      std::size_t size_;
