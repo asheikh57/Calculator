@@ -8,7 +8,7 @@
 template<typename T>
 class Stack {
     public:
-      T pop() {
+      [[nodiscard]] T pop() {
         if (isEmpty()) {
             throw std::out_of_range("Stack.h : pop() : Empty, stack underflow");
         }
@@ -29,11 +29,11 @@ class Stack {
         size_++;
       }
 
-      bool isEmpty() {
+      [[nodiscard]] bool isEmpty() {
         return size_ == 0;
       }
 
-      size_t size() {
+      [[nodiscard]] size_t size() {
         return size_;
       }
 
