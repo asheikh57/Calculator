@@ -18,6 +18,7 @@ class BasicRpnCalculator {
                 doBinop(ch);
             }
         }
+        // TODO: clear stack at end, potentially, or define destructor
         std::cout << "Calculation finished output: " << nums.pop() << std::endl;
       }
 
@@ -37,7 +38,7 @@ class BasicRpnCalculator {
 
     private:
       void doBinop(const char &ch) {
-        int num1 = nums.pop(), num2 = nums.pop();
+        int num2 = nums.pop(), num1 = nums.pop();
         debugMsg("doBinop", std::format("popped {}, {} from stack", num1, num2));
         int ret;
         switch(ch) {
@@ -70,7 +71,19 @@ class BasicRpnCalculator {
       Stack<int> nums;
 };
 
+void repl() {
+    BasicRpnCalculator rpn;
+    rpn.setDebug(true);
+    std::string line;
+    while( std::getline(std::cin, line)) {
+        if (line == "exit" || line == "stop" || line == "exit()" || line == "") break;
+        rpn.readExpression(line.c_str());
+    }
+}
+
+
 int main() {
+    /*
     Stack<char> st;
     const char * expr = "2 3 + 4 * 1 / 5 *";
     //for(char c: expr) st.push(c);
@@ -79,5 +92,7 @@ int main() {
     BasicRpnCalculator rpn;
     rpn.setDebug(true);
     rpn.readExpression(expr);
+    */
+    repl();
     return 0;
 }
