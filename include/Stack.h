@@ -29,6 +29,12 @@ class Stack {
         size_++;
       }
 
+      void clear() {
+        // Not pure efficiency but it's readable and doesn't break rules.
+        T dummy;
+        while(!isEmpty()) dummy = pop();
+      }
+
       [[nodiscard]] bool isEmpty() {
         return size_ == 0;
       }
@@ -44,7 +50,7 @@ class Stack {
         Node(T data) : val(data), next(nullptr) {};
      };
 
-     std::size_t size_;
+     std::size_t size_ = 0;
      std::unique_ptr<Node> head_;
       
 };

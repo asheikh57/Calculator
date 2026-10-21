@@ -18,8 +18,12 @@ class BasicRpnCalculator {
                 doBinop(ch);
             }
         }
-        // TODO: clear stack at end, potentially, or define destructor
-        std::cout << "Calculation finished output: " << nums.pop() << std::endl;
+        // TODO: deal with bad inputs better, if I care enough to do so.
+
+        auto num = nums.pop();
+        std::cout << "Calculation finished output: " << num << std::endl;
+        if (!isPersistent) nums.clear();
+        else if (isPersistent) nums.push(num);
       }
 
       void debugMsg(const char * func, const char * msg) {
@@ -35,6 +39,7 @@ class BasicRpnCalculator {
       }
 
       void setDebug(bool flag) { debug = flag; }
+      void setPersistence(bool flag) { isPersistent = flag; }
 
     private:
       void doBinop(const char &ch) {
@@ -68,12 +73,14 @@ class BasicRpnCalculator {
       }
 
       bool debug = false;
+      bool isPersistent = false;
       Stack<int> nums;
 };
 
 void repl() {
     BasicRpnCalculator rpn;
     rpn.setDebug(true);
+    rpn.setPersistence(true);
     std::string line;
     while( std::getline(std::cin, line)) {
         if (line == "exit" || line == "stop" || line == "exit()" || line == "") break;
