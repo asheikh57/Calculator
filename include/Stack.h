@@ -1,5 +1,4 @@
-#ifndef STACK_H
-#define STACK_H
+#pragma once
 
 #include <memory>
 #include <stdexcept>
@@ -54,5 +53,3 @@ class Stack {
      std::unique_ptr<Node> head_;
       
 };
-
-#endif
