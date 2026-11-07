@@ -6,8 +6,8 @@
 // Only looks at INTS from 0 to 9
 class BasicRpnCalculator {
     public:
-      void readExpression(const char * expr) {
-        int num = 1;
+      void evalExpression(const char * expr) {
+        int num = 0;
         for(char ch : std::string_view(expr)) {
             if (isNum(ch)) {
                 num = ch - '0';
@@ -20,8 +20,8 @@ class BasicRpnCalculator {
         }
         // TODO: deal with bad inputs better, if I care enough to do so.
 
-        auto num = nums.pop();
-        std::cout << "Calculation finished output: " << num << std::endl;
+        auto res = nums.pop();
+        std::cout << "Calculation finished output: " << res << std::endl;
         if (!isPersistent) nums.clear();
         else if (isPersistent) nums.push(num);
       }
@@ -84,7 +84,7 @@ void repl() {
     std::string line;
     while( std::getline(std::cin, line)) {
         if (line == "exit" || line == "stop" || line == "exit()" || line == "") break;
-        rpn.readExpression(line.c_str());
+        rpn.evalExpression(line.c_str());
     }
 }
 
